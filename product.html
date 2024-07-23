@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+</head>
+<body>
+
+    <div class="container-fluid border border-black my-4">
+
+        <div class="row border border-primary" style="min-height: 50dvh;">
+            <div class="col-12 col-md-4 shadow-sm my-2 py-3">
+                <input type="text" class="form-control my-2" placeholder="Product Name" id="productName">
+                <input type="text" class="form-control my-2" placeholder="Product Price" id="productPrice">
+                <input type="text" class="form-control my-2" placeholder="Product Image" id="productImage">
+                <input type="text" class="form-control my-2" placeholder="Quantity Left" id="qtyLeft">
+                <button class="btn btn-primary w-100" onclick="addProduct()">Add Product</button>
+            </div>
+            <div class="col-12 col-md-8 my-2 py-3">
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Product Image</th>
+                        <th scope="col">Product Name</th>
+                        <th scope="col">Product Price</th>
+                        <th scope="col">Quantity Left</th>
+                        <th scope="col">Edit</th>
+                        <th scope="col">Delete</th>
+                      </tr>
+                    </thead>
+                    <tbody id="tableBody">
+
+                    
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+    </div>
+    
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <script>
+        let all_products = []
+
+        function addProduct(){
+            let product_name = productName.value
+            let product_price = productPrice.value
+            let product_image = productImage.value
+            let qty_left = qtyLeft.value
+
+            let product = {
+                product_name,
+                product_price,
+                product_image,
+                qty_left
+            }
+            all_products.push(product)
+            productName.value = ''
+            productPrice.value = ''
+            productImage.value = ''
+            qtyLeft.value = ''
+            
+            displayProducts()
+            // console.log(product_name, product_price, product_image, qty_left);
+        }
+
+
+        function displayProducts(){
+            tableBody.innerHTML = ''
+            let htmlTable = ''
+            for (let x = 0; x < all_products.length; x++){
+                htmlTable +=`
+                <tr>
+                    <th scope="row"> ${x + 1}</th>
+                    <td><img src="${all_products[x].product_image}" alt="" height="50"></td>
+                    <td>${all_products[x].product_name}</td>
+                    <td>${all_products[x].product_price}</td>
+                    <td>${all_products[x].qty_left}</td>
+                    <td><button class="btn btn-primary">Edit</button></td>
+                    <td><button class="btn btn-danger">Delete</button></td>
+                </tr>
+               `  
+            }
+            tableBody.innerHTML = htmlTable
+        }
+    </script>
+</body>
+</html>
