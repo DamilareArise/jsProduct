@@ -66,6 +66,7 @@
             productImage.value = ''
             qtyLeft.value = ''
             
+            console.log(all_products)
             displayProducts()
             // console.log(product_name, product_price, product_image, qty_left);
         }
@@ -82,13 +83,36 @@
                     <td>${all_products[x].product_name}</td>
                     <td>${all_products[x].product_price}</td>
                     <td>${all_products[x].qty_left}</td>
-                    <td><button class="btn btn-primary">Edit</button></td>
-                    <td><button class="btn btn-danger">Delete</button></td>
+                    <td><button class="btn btn-primary" onclick="editProduct(${x})" >Edit</button></td>
+                    <td><button class="btn btn-danger" onclick="deleteProduct(${x})">Delete</button></td>
                 </tr>
                `  
             }
             tableBody.innerHTML = htmlTable
         }
+
+        
+        function deleteProduct(index){
+            console.log('I am work', index)
+            deleted = confirm('Are you sure?')
+            if(deleted){
+                all_products.splice(index, 1)
+            }
+            displayProducts()
+        }
+
+        function editProduct(index){
+            console.log(index);
+            let product =  all_products[index]
+            console.log(product);
+            product.product_name = prompt('New Product name')
+            product.product_price = prompt('New Product price')
+            product.product_image = prompt('New Product image')
+            product.qty_left = prompt('New Product qty left')
+            displayProducts()
+        }
+
+
     </script>
 </body>
 </html>
